@@ -1,0 +1,5 @@
+#!/bin/bash
+# Genesi OS - dmcheck (dummy script)
+# This script is not needed for Genesi OS
+echo "==> Genesi OS: dmcheck skipped"
+exit 0

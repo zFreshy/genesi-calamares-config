@@ -1,0 +1,5 @@
+#!/bin/bash
+# Genesi OS - remove-nvidia (dummy script)
+# This script is not needed for Genesi OS
+echo "==> Genesi OS: remove-nvidia skipped"
+exit 0

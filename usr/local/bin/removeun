@@ -1,0 +1,5 @@
+#!/bin/bash
+# Genesi OS - removeun (dummy script)
+# This script is not needed for Genesi OS
+echo "==> Genesi OS: removeun skipped"
+exit 0
