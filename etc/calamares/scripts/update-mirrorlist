@@ -7,10 +7,10 @@ echo "==> Genesi OS: Updating mirrorlist..."
 # Use reflector if available, otherwise use default mirrors
 if command -v reflector &> /dev/null; then
     echo "==> Using reflector to rank mirrors..."
-    reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
+    reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist || true
 elif command -v rate-mirrors &> /dev/null; then
     echo "==> Using rate-mirrors to rank mirrors..."
-    rate-mirrors --allow-root arch > /etc/pacman.d/mirrorlist
+    rate-mirrors --allow-root arch > /etc/pacman.d/mirrorlist || true
 else
     echo "==> No mirror ranking tool available, using default mirrors..."
     cat > /etc/pacman.d/mirrorlist << 'EOF'
@@ -24,6 +24,8 @@ Server = https://geo.mirror.pkgbuild.com/$repo/os/$arch
 EOF
 fi
 
-chmod 0644 /etc/pacman.d/mirrorlist
+chmod 0644 /etc/pacman.d/mirrorlist 2>/dev/null || true
 echo "==> Mirrorlist updated successfully"
+
+# Always exit with success to prevent installation failure
 exit 0
