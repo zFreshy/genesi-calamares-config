@@ -8,6 +8,12 @@ echo "==> Genesi OS: Updating mirrorlist..."
 if command -v cachyos-rate-mirrors &> /dev/null; then
     echo "==> Using cachyos-rate-mirrors to rank mirrors..."
     cachyos-rate-mirrors || true
+    
+    # Also fetch CachyOS mirrors manually just to be safe
+    curl -s "https://mirror.cachyos.org/cachyos-mirrorlist" -o /etc/pacman.d/cachyos-mirrorlist || true
+    curl -s "https://mirror.cachyos.org/cachyos-v3-mirrorlist" -o /etc/pacman.d/cachyos-v3-mirrorlist || true
+    curl -s "https://mirror.cachyos.org/cachyos-v4-mirrorlist" -o /etc/pacman.d/cachyos-v4-mirrorlist || true
+    
 elif command -v reflector &> /dev/null; then
     echo "==> Using reflector to rank mirrors..."
     reflector --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist || true
