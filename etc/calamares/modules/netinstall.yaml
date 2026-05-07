@@ -21,11 +21,8 @@
      - cachyos-zsh-config
      - linux-cachyos
      - linux-cachyos-headers
-     - mhwd-cachyos
-     - mhwd-nvidia-390xx
      - micro
      - nano
-     - nerd-fonts-meslo
      - vim
 - name: "Base-devel + Common packages"
   description: "Recommended. Don't change unless you know what you're doing (generic)."
@@ -256,11 +253,7 @@
     - kdeconnect
     - kscreen
     - kde-gtk-config
-    - khotkeys
     - kinfocenter
-    - kinit
-    - kinfocenter
-    - khotkeys
     - plasma
     - plasma-wayland-protocols
     - plasma-desktop
