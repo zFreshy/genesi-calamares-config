@@ -318,7 +318,7 @@
   description: "Support for printing (Cups)"
   hidden: true
   selected: true
-  critical: true
+  critical: false
   packages:
     - cups
     - cups-filters
@@ -337,7 +337,7 @@
   description: "Extra Packages for HP Printer/Scanner"
   hidden: true
   selected: true
-  critical: true
+  critical: false
   packages:
     - hplip
     - python-pyqt5
@@ -346,7 +346,7 @@
   description: "Screen reader and mouse tweaks (impaired vision)"
   hidden: true
   selected: false
-  critical: true
+  critical: false
   packages:
     - espeak-ng
     - mousetweaks
