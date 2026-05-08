@@ -1,29 +1,23 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿- name: "CachyOS"
-  description: "needed CachyOS packages"
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿- name: "Genesi OS"
+  description: "Genesi OS essential packages"
   hidden: true
   selected: true
   critical: true
   packages:
      - alacritty
      - btop
-     - cachyos
-     - cachy-browser
-     - cachyos-fish-config
-     - cachyos-hello
-     - cachyos-hooks
-     - cachyos-kernel-manager
      - cachyos-keyring
      - cachyos-mirrorlist
-     - cachyos-rate-mirrors
-     - cachyos-packageinstaller
-     - cachyos-settings
      - cachyos-v3-mirrorlist
-     - cachyos-zsh-config
+     - cachyos-rate-mirrors
      - linux-cachyos
      - linux-cachyos-headers
      - micro
      - nano
      - vim
+     - python-pyqt5
+     - genesi-settings
+     - genesi-calamares-branding
 - name: "Base-devel + Common packages"
   description: "Recommended. Don't change unless you know what you're doing (generic)."
   hidden: false
@@ -240,10 +234,6 @@
     - audiocd-kio
     - bluedevil
     - breeze-gtk
-    - cachyos-nord-kde-theme-git
-    - cachyos-lavender-kde-theme-git
-    - cachyos-iridescent-kde
-    - cachyos-kde-settings
     - dolphin
     - egl-wayland
     - konsole
