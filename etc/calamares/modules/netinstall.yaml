@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿- name: "Genesi OS"
+﻿﻿- name: "Genesi OS"
   description: "Genesi OS essential packages"
   hidden: true
   selected: true
@@ -115,7 +115,7 @@
           - unzip
           - xz
       - name: "fonts"
-        description: "CachyOS font selection"
+        description: "Genesi OS font selection"
         selected: true
         packages:
           - adobe-source-han-sans-cn-fonts
