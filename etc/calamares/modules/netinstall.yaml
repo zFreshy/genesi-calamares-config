@@ -16,7 +16,8 @@
      - nano
      - vim
      - python-pyqt5
-     - genesi-settings
+     # genesi-settings is installed by shellprocess@before-online with --overwrite
+     # to prevent file conflicts. Do NOT add it here or it will fail.
 - name: "Base-devel + Common packages"
   description: "Recommended. Don't change unless you know what you're doing (generic)."
   hidden: false
