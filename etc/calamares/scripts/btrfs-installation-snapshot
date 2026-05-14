@@ -1,0 +1,23 @@
+#!/bin/bash
+# Genesi OS: stub for cachyos-calamares-next's "Btrfs installation snapshot" job.
+#
+# Upstream `cachyos-calamares-next` hardcodes a shellprocess instance pointing
+# at /etc/calamares/scripts/btrfs-installation-snapshot. When the script is
+# missing the job exits with code 127 ("No such file or directory") and
+# Calamares aborts the entire install (we saw this at job 45/46 in the live
+# ISO log).
+#
+# We don't currently ship grub-btrfs/snapper integration, so a successful
+# no-op is the right behavior. If the root filesystem is btrfs we still
+# attempt a best-effort "@initial-install" snapshot, but any failure is
+# swallowed so the installer never aborts here.
+set -u
+
+ROOT_DEV="$(findmnt -no SOURCE / 2>/dev/null || true)"
+ROOT_FS="$(findmnt -no FSTYPE / 2>/dev/null || true)"
+
+if [ "${ROOT_FS:-}" = "btrfs" ] && command -v btrfs >/dev/null 2>&1; then
+    btrfs subvolume snapshot -r / /.snapshots/@initial-install 2>/dev/null || true
+fi
+
+exit 0
