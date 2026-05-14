@@ -1,0 +1,21 @@
+#!/bin/bash
+# Genesi OS - enable-ufw
+# Runs INSIDE the target chroot during installation.
+# Upstream cachyos-calamares ships shellprocess@enable_ufw which expects
+# this script to exist; provide a safe implementation that enables UFW
+# only if it is actually installed (Genesi uses firewalld by default,
+# so this is usually a no-op).
+
+set -e
+
+if command -v ufw >/dev/null 2>&1; then
+    echo "==> enable-ufw: configuring UFW (deny incoming, allow outgoing)"
+    ufw default deny incoming  || true
+    ufw default allow outgoing || true
+    ufw --force enable          || true
+    systemctl enable ufw.service || true
+else
+    echo "==> enable-ufw: ufw not installed, skipping"
+fi
+
+exit 0
