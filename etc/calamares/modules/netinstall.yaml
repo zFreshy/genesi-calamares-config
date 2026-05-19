@@ -17,6 +17,15 @@
      - vim
      - python-pyqt5
      - genesi-settings
+     # Genesi-built packages from the [genesi] repo. These are produced by
+     # .github/workflows/publish-packages.yml and uploaded to
+     # genesi-arch/repo/x86_64. Adding them here is what actually installs
+     # the update notifier, welcome app, and AI mode on the target.
+     - genesi-update
+     - genesi-welcome
+     - genesi-ai-mode
+     - genesi-kde-settings
+     - genesi-channel
 - name: "Base-devel + Common packages"
   description: "Recommended. Don't change unless you know what you're doing (generic)."
   hidden: false
