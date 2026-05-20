@@ -98,5 +98,59 @@ if [ -x "$ROOT/usr/bin/grub-mkconfig" ] && [ -f "$ROOT/boot/grub/grub.cfg" ]; th
     fi
 fi
 
+# ---- Defensive SDDM fixes ----------------------------------------------
+# These three blocks fix the "black screen after install" reproduced on
+# VirtualBox installs:
+#   1. genesi-x11-detect.sh may decide vmwgfx isn't critical and skip
+#      writing 00-display-server.conf. Wayland on vmwgfx then crashes
+#      sddm-greeter -> black screen. Force X11 unconditionally on the
+#      installed target. Real-hardware users can `rm` this file to opt
+#      back into Wayland.
+#   2. The "genesi" SDDM theme works on the live ISO but exits 127 on
+#      the installed target (probably a QML/binary dep that ships with
+#      cachyos-calamares-next on the live but is absent from the target).
+#      Switch the target's SDDM Current= theme to breeze until the genesi
+#      theme is fixed properly.
+#   3. Remove calamares.desktop from any /home/<user>/Desktop and from
+#      /etc/skel/Desktop — that shortcut is a live-ISO Install button,
+#      makes zero sense on the installed system. Same for KDE Plasma's
+#      "Welcome to Plasma" (Konqi) autostart, which duplicates and clashes
+#      with our genesi-welcome.
+
+mkdir -p "$ROOT/etc/sddm.conf.d"
+cat > "$ROOT/etc/sddm.conf.d/00-display-server.conf" << 'EOF'
+[General]
+DisplayServer=x11
+EOF
+echo "==> Forced SDDM DisplayServer=x11 in target"
+
+if [ -f "$ROOT/etc/sddm.conf.d/genesi-theme.conf" ]; then
+    sed -i 's|^Current=genesi|Current=breeze|' \
+        "$ROOT/etc/sddm.conf.d/genesi-theme.conf"
+    echo "==> Switched SDDM Current=breeze in target (genesi theme exits 127)"
+fi
+
+# Strip calamares.desktop from /etc/skel and all existing user homes
+rm -f "$ROOT/etc/skel/Desktop/calamares.desktop" 2>/dev/null
+for home in "$ROOT"/home/*; do
+    [ -d "$home/Desktop" ] || continue
+    rm -f "$home/Desktop/calamares.desktop" 2>/dev/null
+done
+echo "==> Stripped calamares.desktop from /etc/skel and /home/*/Desktop"
+
+# Disable KDE Plasma Welcome (Konqi mascot) — clashes visually with our
+# genesi-welcome. Drop a Hidden=true override in /etc/xdg/autostart so it
+# applies system-wide for the installed system.
+if [ -f "$ROOT/etc/xdg/autostart/org.kde.plasma.welcome.desktop" ]; then
+    cat > "$ROOT/etc/xdg/autostart/org.kde.plasma.welcome.desktop" << 'EOF'
+[Desktop Entry]
+Type=Application
+Name=Welcome Center
+Hidden=true
+X-GNOME-Autostart-enabled=false
+EOF
+    echo "==> Disabled KDE Plasma Welcome autostart (we have genesi-welcome)"
+fi
+
 echo "==> Genesi OS: branding files written"
 exit 0
