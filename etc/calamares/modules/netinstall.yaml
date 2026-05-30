@@ -188,7 +188,6 @@
           - meld
           - nano-syntax-highlighting
           - fastfetch
-          - pcurses
           - pv
           - python-defusedxml
           - python-packaging
