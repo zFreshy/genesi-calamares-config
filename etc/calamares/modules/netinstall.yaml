@@ -290,15 +290,31 @@
   packages:
     - firefox
     - firefox-i18n-$LOCALE
+# NVIDIA: use nvidia-open-dkms, NOT nvidia-dkms.
+# CachyOS ships its own nvidia-open-dkms (depends only on `dkms`, no
+# nvidia-utils version pin) and a matching nvidia-utils, both currently
+# 595.71.05. It does NOT ship a `nvidia-dkms` package. The only provider of
+# `nvidia-dkms` in the configured repos is Arch's extra/nvidia-open-dkms
+# (610.43.02, which Provides+Replaces nvidia-dkms and hard-pins
+# nvidia-utils=610.43.02). So requesting `nvidia-dkms` forces the Arch 610
+# package while nvidia-utils resolves to CachyOS 595 (cachyos has repo
+# priority) -> "unable to satisfy nvidia-utils=610.43.02" -> install aborts
+# (paste.cachyos.org/p/dd018da.log, 2026-05-31). Requesting nvidia-open-dkms
+# instead pulls cachyos/nvidia-open-dkms 595.71.05, which matches.
+#
+# critical: false so that a driver mismatch (e.g. nvidia-open-dkms only
+# supports Turing+; older GPUs need proprietary nvidia) does not abort the
+# whole install. The long-term fix is to drive nvidia via chwd (hardware
+# detection) like CachyOS upstream, instead of this fixed netinstall group.
 - name: "NVIDIA Drivers"
   description: "Select them if you want to use the nvidia drivers"
   hidden: false
   selected: false
-  critical: true
+  critical: false
   packages:
     - nvidia-utils
     - lib32-nvidia-utils
-    - nvidia-dkms
+    - nvidia-open-dkms
     - nvidia-settings
     - lib32-opencl-nvidia
     - opencl-nvidia
