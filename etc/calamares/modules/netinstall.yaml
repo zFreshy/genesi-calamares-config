@@ -34,6 +34,8 @@
      - genesi-klassy
      - genesi-darkly
      - genesi-grub-theme
+     # Branded fastfetch greeting (logo + system info) on terminal launch.
+     - genesi-fastfetch
 - name: "Base-devel + Common packages"
   description: "Recommended. Don't change unless you know what you're doing (generic)."
   hidden: false
