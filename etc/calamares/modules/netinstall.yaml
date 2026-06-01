@@ -26,6 +26,14 @@
      - genesi-ai-mode
      - genesi-kde-settings
      - genesi-channel
+     # Window decoration (rounded corners) + widget style/glassmorphism +
+     # branded GRUB. Built from source by publish-packages.yml. These replace
+     # the old "compile on the live ISO, cp into the target" hack
+     # (genesi-copy-klassy.sh), which left installed systems with the config
+     # pointing at klassy/Darkly but no plugin on disk -> default Breeze look.
+     - genesi-klassy
+     - genesi-darkly
+     - genesi-grub-theme
 - name: "Base-devel + Common packages"
   description: "Recommended. Don't change unless you know what you're doing (generic)."
   hidden: false
