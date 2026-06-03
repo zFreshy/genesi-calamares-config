@@ -24,6 +24,11 @@
      - genesi-update
      - genesi-welcome
      - genesi-ai-mode
+     # llama.cpp (Vulkan) — ships `llama-server`, the backend of Genesi Turbo's
+     # ⚡ speculative-decoding switch in the AI Mode Monitor. Optdepend of
+     # genesi-ai-mode (not a hard dep — both are built by the same publish
+     # pipeline, so a dep would break the build), shipped by default here.
+     - genesi-llama-cpp
      - genesi-kde-settings
      - genesi-channel
      # Window decoration (rounded corners) + widget style/glassmorphism +
