@@ -32,6 +32,11 @@
      # installs ship it too.
      - genesi-packageinstaller
      - genesi-ai-mode
+     # MemPalace integration — local-first long-term memory for the on-device AI
+     # (roadmap 2.7). Lightweight (scripts + a per-user indexer service); the
+     # mempalace CLI itself is provisioned per-user on demand (uv tool, from
+     # PyPI), so this adds negligible install weight.
+     - genesi-mempalace
      # llama.cpp (Vulkan) — ships `llama-server`, the backend of Genesi Turbo's
      # ⚡ speculative-decoding switch in the AI Mode Monitor. Optdepend of
      # genesi-ai-mode (not a hard dep — both are built by the same publish
