@@ -310,6 +310,54 @@
     - xf86-video-vesa
     - xorg-xwayland
     - xsettingsd
+- name: "Hyprland-Desktop"
+  description: "Hyprland + caelestia-shell - Wayland tiling compositor with the Quickshell-based Caelestia design."
+  # Roadmap 5.1 second desktop option. Selected from the packagechooser
+  # (method: netinstall-select) — its item id "Hyprland-Desktop" matches this
+  # group name, so picking it activates this group and deselects "KDE-Desktop".
+  # Default off; Plasma stays the default desktop.
+  #
+  # The shared Genesi components (genesi-update, genesi-welcome, genesi-ai-mode,
+  # genesi-fastfetch, genesi-grub-theme, themes, etc.) are NOT repeated here:
+  # they live in the always-on "Genesi OS" group at the top of this file, so a
+  # Hyprland install inherits the full Genesi experience automatically.
+  #
+  # caelestia + its AUR-only deps are repackaged into the [genesi] repo
+  # (genesi-* names, built by publish-packages.yml); quickshell now ships in
+  # Arch [extra]. They are listed explicitly so this critical group fails loudly
+  # if the repo ever lacks them.
+  hidden: true
+  selected: false
+  critical: true
+  packages:
+    # Compositor + session/display stack
+    - hyprland
+    - sddm
+    - xdg-desktop-portal-hyprland
+    - xdg-desktop-portal-gtk
+    - polkit-kde-agent
+    - qt6-wayland
+    - qt5-wayland
+    - egl-wayland
+    - xorg-xwayland
+    - wl-clipboard
+    - brightnessctl
+    - ddcutil
+    - grim
+    - slurp
+    # Terminal + file manager referenced by the default hyprland.conf
+    - kitty
+    - dolphin
+    # Quickshell runtime (Arch [extra])
+    - quickshell
+    # caelestia (Genesi repackages of AUR software) + Genesi config/branding
+    - genesi-app2unit
+    - genesi-libcava
+    - genesi-materialyoucolor
+    - genesi-ttf-rubik-vf
+    - genesi-caelestia-cli
+    - genesi-caelestia-shell
+    - genesi-caelestia-settings
 - name: "Firefox and language package"
   description: "Add firefox and language pack if possible"
   hidden: true
