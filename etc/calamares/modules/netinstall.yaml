@@ -259,17 +259,25 @@
     - linux-cachyos-pds-headers
     - linux-cachyos-tt
     - linux-cachyos-tt-headers
-# selected: false is REQUIRED for the desktop chooser to work. The
-# packagechooser (method: netinstall-select) only force-SELECTS the chosen
-# group and unselects the previously-chosen one (NetInstallPage::onActivate);
-# it never unselects a group that is `selected: true` on its own. With
-# selected: true here, KDE installed on EVERY install regardless of the
-# chooser — picking "Hyprland + caelestia-shell" still dragged in Plasma
-# (reproduced 2026-06-17). The chooser's `default: KDE-Desktop` keeps Plasma
-# the default selection, so leaving this false loses nothing.
+# DE groups MUST be `hidden: false` + `selected: false` for the desktop chooser
+# to work. WHY hidden:false: the packagechooser (method: netinstall-select) makes
+# its pick install by force-SELECTING the matching group via
+# NetInstallPage::onActivate -> PackageModel::updateSelections, which walks ONLY
+# the visible tree (m_rootItem). A `hidden: true` group is NOT appended to that
+# tree — PackageModel::setupModelData puts it in a separate m_hiddenItems list
+# (PackageModel.cpp ~L437) whose install is governed by its OWN selected flag
+# (hiddenSelected()), untouched by the chooser. So with hidden:true, picking
+# "Hyprland + caelestia-shell" force-selected nothing and Hyprland never
+# installed, while KDE still came in — the bug reproduced on every build through
+# 2026-06-17. CachyOS ships its DE groups hidden:false for exactly this reason;
+# it also gives the wanted UX (the DE groups show as checkboxes on the Packages
+# page, pre-checked to match the Desktop step). WHY selected:false: the chooser
+# only force-SELECTS its pick and unselects the previous one; it never unselects
+# a group that is `selected: true` on its own, so a true here would install KDE
+# regardless. `default: KDE-Desktop` keeps Plasma the default pick.
 - name: "KDE-Desktop"
   description: "KDE-Plasma Desktop - Simple by default, powerful when needed."
-  hidden: true
+  hidden: false
   selected: false
   critical: true
   packages:
@@ -334,7 +342,11 @@
   # (genesi-* names, built by publish-packages.yml); quickshell now ships in
   # Arch [extra]. They are listed explicitly so this critical group fails loudly
   # if the repo ever lacks them.
-  hidden: true
+  #
+  # hidden: false is REQUIRED — see the KDE-Desktop note above: a hidden group is
+  # never added to the selectable tree, so the chooser's force-select can't reach
+  # it and Hyprland never installs.
+  hidden: false
   selected: false
   critical: true
   packages:
