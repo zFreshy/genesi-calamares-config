@@ -15,6 +15,10 @@
      - micro
      - nano
      - vim
+     # Default interactive shell (Calamares users module sets it as userShell).
+     # Needed on EVERY install — incl. KDE-only — or that login shell wouldn't
+     # exist. fish gives autosuggestions/completions out of the box (CachyOS-style).
+     - fish
      - python-pyqt5
      - genesi-settings
      # Genesi-built packages from the [genesi] repo. These are produced by
