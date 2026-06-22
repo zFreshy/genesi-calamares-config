@@ -19,6 +19,15 @@
      # Needed on EVERY install — incl. KDE-only — or that login shell wouldn't
      # exist. fish gives autosuggestions/completions out of the box (CachyOS-style).
      - fish
+     # Own /etc/lsb-release with the distro package. The Calamares branding step
+     # (shellprocess@copy_genesi, which runs AFTER packages@online) writes
+     # /etc/lsb-release as an UNOWNED file, so later installing anything that
+     # depends on lsb-release (steam, proton-cachyos, …) fails with
+     #   lsb-release: /etc/lsb-release exists in filesystem  (file conflict).
+     # Installing the package here makes pacman own the path; the branding step
+     # then only overwrites its CONTENT (no conflict), and the dependency is
+     # already satisfied when steam is installed later. Reported 2026-06-22.
+     - lsb-release
      - python-pyqt5
      - genesi-settings
      # Genesi-built packages from the [genesi] repo. These are produced by
