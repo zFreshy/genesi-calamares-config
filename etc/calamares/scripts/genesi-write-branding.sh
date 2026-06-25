@@ -21,10 +21,10 @@ ID=genesi
 ID_LIKE="cachyos arch"
 BUILD_ID=rolling
 ANSI_COLOR="38;2;23;147;209"
-HOME_URL="https://github.com/zFreshy/GenesiOS"
-DOCUMENTATION_URL="https://github.com/zFreshy/GenesiOS"
-SUPPORT_URL="https://github.com/zFreshy/GenesiOS/issues"
-BUG_REPORT_URL="https://github.com/zFreshy/GenesiOS/issues"
+HOME_URL="https://github.com/Genesi-OS/GenesiOS"
+DOCUMENTATION_URL="https://github.com/Genesi-OS/GenesiOS"
+SUPPORT_URL="https://github.com/Genesi-OS/GenesiOS/issues"
+BUG_REPORT_URL="https://github.com/Genesi-OS/GenesiOS/issues"
 LOGO=genesi
 EOF
 
