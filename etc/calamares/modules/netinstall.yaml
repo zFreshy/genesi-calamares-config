@@ -67,6 +67,10 @@
      - genesi-grub-theme
      # Branded fastfetch greeting (logo + system info) on terminal launch.
      - genesi-fastfetch
+     # Genesi look for the GTK desktops (GNOME/Xfce/Cinnamon/MATE): a login-time
+     # script that applies wallpaper/theme/accent/launchers. Always-on so every
+     # DE install gets it; it no-ops on KDE/Hyprland (which brand themselves).
+     - genesi-de-branding
 - name: "Base-devel + Common packages"
   description: "Recommended. Don't change unless you know what you're doing (generic)."
   hidden: false
